@@ -80,7 +80,7 @@ ros2 launch module_c_nav_teaching 02_nav2_known_map.launch.py map:=02_open_obsta
 检查 Nav2 节点：
 
 ```bash
-ros2 node list --no-daemon | grep -E 'map_server|amcl|planner_server|controller_server|bt_navigator|costmap'
+timeout 5s ros2 node list --no-daemon | grep -E 'map_server|amcl|planner_server|controller_server|bt_navigator|costmap'
 ```
 
 应包含：
@@ -601,13 +601,26 @@ ros2 daemon start
 检查话题：
 
 ```bash
-ros2 topic list --no-daemon
+timeout 5s ros2 topic list --no-daemon
 ```
 
 检查节点：
 
 ```bash
-ros2 node list --no-daemon
+timeout 5s ros2 node list --no-daemon
+```
+
+如果 `ros2 node list` 或 `ros2 topic list` 长时间卡住，先重启 ROS 2 daemon：
+
+```bash
+ros2 daemon stop
+ros2 daemon start
+```
+
+然后重新检查：
+
+```bash
+timeout 5s ros2 node list --no-daemon
 ```
 
 检查 Gazebo 模型：
