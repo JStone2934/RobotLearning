@@ -2,17 +2,21 @@
 
 ## 1. 环境准备
 
+本文命令中的 `/path/to/your/ros2_ws` 是占位路径，请替换为自己的 ROS 2 工作空间路径。例如工作空间在 `~/ros2_ws` 时，写成 `cd ~/ros2_ws`。
+
 打开终端，执行：
 
 ```bash
-cd ~/ros2_ws
+# 替换为自己的 ROS 2 工作空间路径，例如 cd ~/ros2_ws
+cd /path/to/your/ros2_ws
 source ~/.bashrc
 ```
 
 构建功能包：
 
 ```bash
-cd ~/ros2_ws
+# 替换为自己的 ROS 2 工作空间路径，例如 cd ~/ros2_ws
+cd /path/to/your/ros2_ws
 colcon build --symlink-install --packages-select module_c_nav_teaching
 source install/setup.bash
 ```
@@ -41,8 +45,11 @@ start: x=0.0, y=0.0
 终端 1：
 
 ```bash
-cd ~/ros2_ws
+# 替换为自己的 ROS 2 工作空间路径，例如 cd ~/ros2_ws
+cd /path/to/your/ros2_ws
 source ~/.bashrc
+source install/setup.bash
+export SVGA_VGPU10=0
 ros2 launch module_c_nav_teaching 01_gazebo_world.launch.py world:=02_open_obstacles.world x_pose:=0.0 y_pose:=0.0
 ```
 
@@ -63,15 +70,17 @@ waffle
 终端 2：
 
 ```bash
-cd ~/ros2_ws
+# 替换为自己的 ROS 2 工作空间路径，例如 cd ~/ros2_ws
+cd /path/to/your/ros2_ws
 source ~/.bashrc
+source install/setup.bash
 ros2 launch module_c_nav_teaching 02_nav2_known_map.launch.py map:=02_open_obstacles.yaml
 ```
 
 检查 Nav2 节点：
 
 ```bash
-ros2 node list --no-daemon | grep -E 'map_server|amcl|planner_server|controller_server|bt_navigator|costmap'
+timeout 5s ros2 node list --no-daemon | grep -E 'map_server|amcl|planner_server|controller_server|bt_navigator|costmap'
 ```
 
 应包含：
@@ -242,7 +251,7 @@ ros2 topic pub --once /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.0}, angul
 参数文件：
 
 ```text
-~/ros2_ws/src/module_c_nav_teaching/config/nav2_params_module_c.yaml
+/path/to/your/ros2_ws/src/module_c_nav_teaching/config/nav2_params_module_c.yaml
 ```
 
 主要参数：
@@ -347,8 +356,24 @@ AMCL 初始位姿 /initialpose
 
 启动格式：
 
+Gazebo 终端：
+
 ```bash
+# 替换为自己的 ROS 2 工作空间路径，例如 cd ~/ros2_ws
+cd /path/to/your/ros2_ws
+source ~/.bashrc
+source install/setup.bash
+export SVGA_VGPU10=0
 ros2 launch module_c_nav_teaching 01_gazebo_world.launch.py world:=<world文件> x_pose:=<出生点x> y_pose:=<出生点y>
+```
+
+Nav2 终端：
+
+```bash
+# 替换为自己的 ROS 2 工作空间路径，例如 cd ~/ros2_ws
+cd /path/to/your/ros2_ws
+source ~/.bashrc
+source install/setup.bash
 ros2 launch module_c_nav_teaching 02_nav2_known_map.launch.py map:=<map文件>
 ```
 
@@ -385,15 +410,47 @@ pose:
 
 开放障碍场景：
 
+Gazebo 终端：
+
 ```bash
+# 替换为自己的 ROS 2 工作空间路径，例如 cd ~/ros2_ws
+cd /path/to/your/ros2_ws
+source ~/.bashrc
+source install/setup.bash
+export SVGA_VGPU10=0
 ros2 launch module_c_nav_teaching 01_gazebo_world.launch.py world:=02_open_obstacles.world x_pose:=0.0 y_pose:=0.0
+```
+
+Nav2 终端：
+
+```bash
+# 替换为自己的 ROS 2 工作空间路径，例如 cd ~/ros2_ws
+cd /path/to/your/ros2_ws
+source ~/.bashrc
+source install/setup.bash
 ros2 launch module_c_nav_teaching 02_nav2_known_map.launch.py map:=02_open_obstacles.yaml
 ```
 
 窄门场景：
 
+Gazebo 终端：
+
 ```bash
+# 替换为自己的 ROS 2 工作空间路径，例如 cd ~/ros2_ws
+cd /path/to/your/ros2_ws
+source ~/.bashrc
+source install/setup.bash
+export SVGA_VGPU10=0
 ros2 launch module_c_nav_teaching 01_gazebo_world.launch.py world:=03_narrow_door.world x_pose:=-3.3 y_pose:=0.0
+```
+
+Nav2 终端：
+
+```bash
+# 替换为自己的 ROS 2 工作空间路径，例如 cd ~/ros2_ws
+cd /path/to/your/ros2_ws
+source ~/.bashrc
+source install/setup.bash
 ros2 launch module_c_nav_teaching 02_nav2_known_map.launch.py map:=03_narrow_door.yaml
 ```
 
@@ -402,23 +459,29 @@ ros2 launch module_c_nav_teaching 02_nav2_known_map.launch.py map:=03_narrow_doo
 终端 1：
 
 ```bash
-cd ~/ros2_ws
+# 替换为自己的 ROS 2 工作空间路径，例如 cd ~/ros2_ws
+cd /path/to/your/ros2_ws
 source ~/.bashrc
+source install/setup.bash
+export SVGA_VGPU10=0
 ros2 launch module_c_nav_teaching 01_gazebo_world.launch.py world:=04_local_room_slam.world x_pose:=0.0 y_pose:=0.0
 ```
 
 终端 2：
 
 ```bash
-cd ~/ros2_ws
+# 替换为自己的 ROS 2 工作空间路径，例如 cd ~/ros2_ws
+cd /path/to/your/ros2_ws
 source ~/.bashrc
+source install/setup.bash
 ros2 launch module_c_nav_teaching 03_slam_mapping.launch.py
 ```
 
 保存地图：
 
 ```bash
-ros2 run nav2_map_server map_saver_cli -f ~/ros2_ws/src/module_c_nav_teaching/maps/my_slam_map
+# 替换为自己的 ROS 2 工作空间路径
+ros2 run nav2_map_server map_saver_cli -f /path/to/your/ros2_ws/src/module_c_nav_teaching/maps/my_slam_map
 ```
 
 ## 13. Behavior Tree 演示
@@ -444,7 +507,8 @@ module_c_bt_demo/
 构建：
 
 ```bash
-cd ~/ros2_ws
+# 替换为自己的 ROS 2 工作空间路径，例如 cd ~/ros2_ws
+cd /path/to/your/ros2_ws
 source ~/.bashrc
 colcon build --symlink-install --packages-select module_c_bt_demo
 source install/setup.bash
@@ -494,8 +558,9 @@ waypoint2:=x,y,yaw
 查看 Behavior Tree XML：
 
 ```bash
-sed -n '1,120p' ~/ros2_ws/src/module_c_bt_demo/behavior_trees/module_c_demo_replanning.xml
-sed -n '1,120p' ~/ros2_ws/src/module_c_bt_demo/behavior_trees/module_c_demo_waypoints.xml
+# 替换为自己的 ROS 2 工作空间路径
+sed -n '1,120p' /path/to/your/ros2_ws/src/module_c_bt_demo/behavior_trees/module_c_demo_replanning.xml
+sed -n '1,120p' /path/to/your/ros2_ws/src/module_c_bt_demo/behavior_trees/module_c_demo_waypoints.xml
 ```
 
 运行效果：
@@ -536,13 +601,26 @@ ros2 daemon start
 检查话题：
 
 ```bash
-ros2 topic list --no-daemon
+timeout 5s ros2 topic list --no-daemon
 ```
 
 检查节点：
 
 ```bash
-ros2 node list --no-daemon
+timeout 5s ros2 node list --no-daemon
+```
+
+如果 `ros2 node list` 或 `ros2 topic list` 长时间卡住，先重启 ROS 2 daemon：
+
+```bash
+ros2 daemon stop
+ros2 daemon start
+```
+
+然后重新检查：
+
+```bash
+timeout 5s ros2 node list --no-daemon
 ```
 
 检查 Gazebo 模型：
