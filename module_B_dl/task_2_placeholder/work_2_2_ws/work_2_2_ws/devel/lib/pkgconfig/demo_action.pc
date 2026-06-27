@@ -1,0 +1,8 @@
+prefix=/home/pgq/JS/RobotLearning/module_B_dl/task_2_placeholder/work_2_2_ws/work_2_2_ws/devel
+
+Name: demo_action
+Description: Description of demo_action
+Version: 0.0.0
+Cflags: -I/home/pgq/JS/RobotLearning/module_B_dl/task_2_placeholder/work_2_2_ws/work_2_2_ws/devel/include
+Libs: -L${prefix}/lib 
+Requires: actionlib actionlib_msgs roscpp rospy std_msgs

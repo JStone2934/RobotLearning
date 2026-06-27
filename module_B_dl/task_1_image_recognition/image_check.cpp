@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-const std::string DEFAULT_IMAGE = "/home/unitree/training_camp/module_B_dl/";
+const std::string DEFAULT_IMAGE = "/home/unitree/training_camp/module_B_dl/task_1_image_recognition/images/action.png";
 const std::vector<std::string> BLESSING_LINES = {
     "恭喜你成功识别到这张祝福图片。",
     "愿新的训练任务顺利完成，代码一路通过。"
@@ -50,7 +50,7 @@ std::string detectImageType(const std::vector<unsigned char>& header) {
 int main(int argc, char* argv[]) {
     std::string imagePath = argc > 1 ? argv[1] : DEFAULT_IMAGE;
 
-    std::ifstream imageFile(imagePath, ____);
+    std::ifstream imageFile(imagePath, std::ios::binary);
     if (!imageFile) {
         std::cerr << "Error: image file not found: " << imagePath << std::endl;
         return 1;
@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
     imageFile.seekg(0, std::ios::end);
     std::streamoff fileSize = imageFile.tellg();
 
-    std::string imageType = ____(header);
+    std::string imageType = detectImageType(header);
 
     std::cout << "===== Image Check Result =====" << std::endl;
     std::cout << "Image path : " << imagePath << std::endl;
