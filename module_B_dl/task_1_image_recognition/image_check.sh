@@ -2,16 +2,16 @@
 
 set -u
 
-DEFAULT_IMAGE="/home/unitree/training_camp/module_B_dl/"
+DEFAULT_IMAGE="/home/unitree/training_camp/module_B_dl/task_1_image_recognition/images/action.png"
 IMAGE_PATH="${1:-$DEFAULT_IMAGE}"
 
-if [ ! ____ "$IMAGE_PATH" ]; then
+if [ ! -f "$IMAGE_PATH" ]; then
     echo "Error: image file not found: $IMAGE_PATH"
     exit 1
 fi
 
 FILE_SIZE=$(wc -c < "$IMAGE_PATH" | tr -d ' ')
-HEADER_HEX=____(od -An -tx1 -N16 "$IMAGE_PATH" | tr -d ' \n')
+HEADER_HEX=$(od -An -tx1 -N16 "$IMAGE_PATH" | tr -d ' \n')
 IMAGE_TYPE="Unknown image format"
 
 case "$HEADER_HEX" in

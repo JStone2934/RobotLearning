@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 
-DEFAULT_IMAGE = Path("/home/unitree/training_camp/module_B_dl/")
+DEFAULT_IMAGE = Path("/home/pgq/JS/RobotLearning/module_B_dl/task_1_image_recognition/images/action.png")
 BLESSING_LINES = [
     "恭喜你成功识别到这张祝福图片。",
     "愿新的训练任务顺利完成，代码一路通过。",
@@ -32,10 +32,10 @@ def main() -> int:
         print(f"Error: image file not found: {image_path}")
         return 1
 
-    with image_path.open("____") as image_file:
+    with image_path.open("rb") as image_file:
         header = image_file.read(16)
 
-    image_type = ____(header)
+    image_type = detect_image_type(header)
     file_size = image_path.stat().st_size
 
     print("===== Image Check Result =====")
